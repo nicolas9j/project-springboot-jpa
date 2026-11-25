@@ -23,4 +23,24 @@ public class UserService {
 		Optional<User> obj = repository.findById(id);
 		return obj.get(); // Função GET do Optional ira retornar o User que estiver no Objeto do tipo Opcional.
 	}
+	
+	public User insertUser(User obj) {
+		 return repository.save(obj);
+	}
+	
+	public void deleteUser(Long id) {
+		repository.deleteById(id);
+	}
+	
+	public User updateUser(Long id, User obj) {
+		User entity = repository.getReferenceById(id);
+		updateData(entity, obj);
+		return repository.save(entity);
+	}
+
+	private void updateData(User entity, User obj) {
+		entity.setName(obj.getName());
+		entity.setEmail(obj.getEmail());
+		entity.setPhone(obj.getPhone());
+	}
 }
